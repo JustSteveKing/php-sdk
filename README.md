@@ -39,3 +39,16 @@ $sdk->addResource('name', new class extends AbstractResource {
 
 $response = $sdk->name->get(); // response interface (psr-7)
 ```
+
+## Todo
+
+- Add More Resource methods.
+- Add filtering Resource methods.
+- Add Auth strategies, including a NullStrategy - allowing no auth needed.
+
+
+```php
+$strategy = new HttpBasicStrategy();
+$strategy = new NullStrategy();
+$strategy = new JWTStrategy();
+```
