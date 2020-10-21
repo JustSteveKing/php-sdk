@@ -1,0 +1,14 @@
+{
+    "name": "juststeveking/php-sdk",
+    "description": "A base sdk for your PHP sdks",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Steve McDougall",
+            "email": "juststevemcd@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {}
+}
