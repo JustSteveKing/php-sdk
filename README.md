@@ -37,5 +37,5 @@ $sdk->addResource('name', new class extends AbstractResource {
     protected string $path = 'name';
 });
 
-$response = $sdk->name->get();
+$response = $sdk->name->get(); // response interface (psr-7)
 ```
