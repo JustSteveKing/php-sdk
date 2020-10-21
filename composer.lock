@@ -4,8 +4,56 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "66f871090ac45eef73544b0895d856de",
+    "content-hash": "4683ea89af3bff07c770f6660a91f754",
     "packages": [
+        {
+            "name": "juststeveking/http-auth-strategies",
+            "version": "v1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/JustSteveKing/http-auth-strategies.git",
+                "reference": "434d9a8c6c465ba5f231323e84127c9e6c3bb55f"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/JustSteveKing/http-auth-strategies/zipball/434d9a8c6c465ba5f231323e84127c9e6c3bb55f",
+                "reference": "434d9a8c6c465ba5f231323e84127c9e6c3bb55f",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7.4"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^9.5@dev",
+                "roave/security-advisories": "dev-latest"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "JustSteveKing\\HttpAuth\\Strategies\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Steve McDougall",
+                    "email": "juststevemcd@gmail.com",
+                    "homepage": "https://www.juststeveking.uk/",
+                    "role": "developer"
+                }
+            ],
+            "description": "A simple PHP package that is used to create different Http Auth Headers",
+            "funding": [
+                {
+                    "url": "https://github.com/JustSteveKing",
+                    "type": "github"
+                }
+            ],
+            "time": "2020-10-21T20:32:08+00:00"
+        },
         {
             "name": "juststeveking/http-slim",
             "version": "dev-master",

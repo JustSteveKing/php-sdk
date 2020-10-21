@@ -13,6 +13,7 @@
     ],
     "minimum-stability": "dev",
     "require": {
+        "juststeveking/http-auth-strategies": "^1.0",
         "juststeveking/http-slim": "dev-master",
         "juststeveking/uri-builder": "^1.0",
         "psr/container": "^1.1@dev"
