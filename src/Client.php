@@ -2,11 +2,11 @@
 
 namespace JustSteveKing\PhpSdk;
 
-use JustSteveKing\UriBuilder\Uri;
-use Psr\Container\ContainerInterface;
+use JustSteveKing\HttpAuth\Strategies\Interfaces\StrategyInterface;
 use JustSteveKing\HttpSlim\HttpClient;
 use JustSteveKing\PhpSdk\Resources\AbstractResource;
-use JustSteveKing\HttpAuth\Strategies\Interfaces\StrategyInterface;
+use JustSteveKing\UriBuilder\Uri;
+use Psr\Container\ContainerInterface;
 
 class Client
 {
@@ -14,6 +14,7 @@ class Client
      * @var StrategyInterface
      */
     private StrategyInterface $strategy;
+
     /**
      * @var ContainerInterface
      */
@@ -32,16 +33,16 @@ class Client
     public function __construct(
         ContainerInterface $factory,
         string $uri
-    ){
+    ) {
         $this->factory = $factory;
         $this->uri = Uri::fromString($uri);
     }
 
     public function addTransport(HttpClient $http): self
     {
-            $this->http = $http;
+        $this->http = $http;
 
-            return $this;
+        return $this;
     }
 
     public function addStrategy(StrategyInterface $strategy): self

@@ -2,8 +2,8 @@
 
 namespace JustSteveKing\PhpSdk\Resources;
 
-use JustSteveKing\UriBuilder\Uri;
 use JustSteveKing\HttpSlim\HttpClient;
+use JustSteveKing\UriBuilder\Uri;
 use Psr\Http\Message\ResponseInterface;
 
 abstract class AbstractResource
