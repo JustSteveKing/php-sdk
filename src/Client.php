@@ -6,9 +6,14 @@ use JustSteveKing\UriBuilder\Uri;
 use Psr\Container\ContainerInterface;
 use JustSteveKing\HttpSlim\HttpClient;
 use JustSteveKing\PhpSdk\Resources\AbstractResource;
+use JustSteveKing\HttpAuth\Strategies\Interfaces\StrategyInterface;
 
 class Client
 {
+    /**
+     * @var StrategyInterface
+     */
+    private StrategyInterface $strategy;
     /**
      * @var ContainerInterface
      */
@@ -37,6 +42,18 @@ class Client
             $this->http = $http;
 
             return $this;
+    }
+
+    public function addStrategy(StrategyInterface $strategy): self
+    {
+        $this->strategy = $strategy;
+
+        return $this;
+    }
+
+    public function strategy(): StrategyInterface
+    {
+        return $this->strategy;
     }
 
     public function addResource(string $name, AbstractResource $resource): self

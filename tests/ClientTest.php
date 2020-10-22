@@ -11,7 +11,9 @@ use Psr\Container\ContainerInterface;
 use JustSteveKing\HttpSlim\HttpClient;
 use Psr\Http\Message\ResponseInterface;
 use Symfony\Component\HttpClient\Psr18Client;
+use JustSteveKing\HttpAuth\Strategies\BasicStrategy;
 use JustSteveKing\PhpSdk\Resources\AbstractResource;
+use JustSteveKing\HttpAuth\Strategies\Interfaces\StrategyInterface;
 
 class ClientTest extends TestCase
 {
@@ -164,6 +166,38 @@ class ClientTest extends TestCase
         $this->assertInstanceOf(
             ResponseInterface::class,
             $client->todos->find(1)
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function it_will_allow_me_to_pass_through_an_auth_strategy()
+    {
+        $client = new Client(
+            new Container,
+            'https://jsonplaceholder.typicode.com'
+        );
+
+        $strategy = new BasicStrategy(
+            base64_encode("username:password")
+        );
+
+        $this->assertInstanceOf(
+            StrategyInterface::class,
+            $strategy
+        );
+
+        $this->assertEquals(
+            ['Authorization' => 'Bearer dXNlcm5hbWU6cGFzc3dvcmQ='],
+            $strategy->getHeader('Bearer')
+        );
+
+        $client->addStrategy($strategy);
+
+        $this->assertInstanceOf(
+            StrategyInterface::class,
+            $client->strategy()
         );
     }
 }

@@ -60,12 +60,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/JustSteveKing/http-slim.git",
-                "reference": "a7da28d524a33466fdd611c7685344d993845ada"
+                "reference": "2e41b05f923d2e8f1a735900ed15f5090bf287bf"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/JustSteveKing/http-slim/zipball/a7da28d524a33466fdd611c7685344d993845ada",
-                "reference": "a7da28d524a33466fdd611c7685344d993845ada",
+                "url": "https://api.github.com/repos/JustSteveKing/http-slim/zipball/2e41b05f923d2e8f1a735900ed15f5090bf287bf",
+                "reference": "2e41b05f923d2e8f1a735900ed15f5090bf287bf",
                 "shasum": ""
             },
             "require": {
@@ -113,7 +113,13 @@
                 "psr-18",
                 "psr-7"
             ],
-            "time": "2020-10-13T07:15:36+00:00"
+            "funding": [
+                {
+                    "url": "https://github.com/JustSteveKing",
+                    "type": "github"
+                }
+            ],
+            "time": "2020-10-21T20:28:48+00:00"
         },
         {
             "name": "juststeveking/parameterbag",
@@ -1543,12 +1549,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "0534ed70e3a792e4891f32ff78055648dfac4a3d"
+                "reference": "b2a9914fd2057a72ec65bc9b3cd963c831a1b14b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/0534ed70e3a792e4891f32ff78055648dfac4a3d",
-                "reference": "0534ed70e3a792e4891f32ff78055648dfac4a3d",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/b2a9914fd2057a72ec65bc9b3cd963c831a1b14b",
+                "reference": "b2a9914fd2057a72ec65bc9b3cd963c831a1b14b",
                 "shasum": ""
             },
             "require": {
@@ -1634,7 +1640,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2020-10-21T04:49:22+00:00"
+            "time": "2020-10-22T06:06:02+00:00"
         },
         {
             "name": "psr/log",
@@ -2589,12 +2595,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/http-client.git",
-                "reference": "fe14eb7841d848aad17032d69175b99c6f01dbb5"
+                "reference": "d3721c5f4e906cee75de9931db603c13deeb0170"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/http-client/zipball/fe14eb7841d848aad17032d69175b99c6f01dbb5",
-                "reference": "fe14eb7841d848aad17032d69175b99c6f01dbb5",
+                "url": "https://api.github.com/repos/symfony/http-client/zipball/d3721c5f4e906cee75de9931db603c13deeb0170",
+                "reference": "d3721c5f4e906cee75de9931db603c13deeb0170",
                 "shasum": ""
             },
             "require": {
@@ -2666,7 +2672,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2020-10-21T04:47:22+00:00"
+            "time": "2020-10-21T13:24:34+00:00"
         },
         {
             "name": "symfony/http-client-contracts",
