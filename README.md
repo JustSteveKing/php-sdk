@@ -49,6 +49,12 @@ $http = HttpClient::build(
 );
 $sdk->addTransport($http);
 
+$strategy = new BasicStrategy(
+    base64_encode("username:password")
+);
+
+$sdk->addStrategy($strategy);
+
 $sdk->addResource('name', new class extends AbstractResource {
     protected string $path = 'name';
 });
