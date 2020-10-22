@@ -2,11 +2,12 @@
 
 namespace JustSteveKing\PhpSdk;
 
-use JustSteveKing\HttpAuth\Strategies\Interfaces\StrategyInterface;
-use JustSteveKing\HttpSlim\HttpClient;
-use JustSteveKing\PhpSdk\Resources\AbstractResource;
+use RuntimeException;
 use JustSteveKing\UriBuilder\Uri;
 use Psr\Container\ContainerInterface;
+use JustSteveKing\HttpSlim\HttpClient;
+use JustSteveKing\PhpSdk\Resources\AbstractResource;
+use JustSteveKing\HttpAuth\Strategies\Interfaces\StrategyInterface;
 
 class Client
 {
@@ -78,6 +79,10 @@ class Client
     {
         if (! $this->factory()->has($name)) {
             throw new RuntimeException("Resource {$name} has not been registered with the SDK.");
+        }
+
+        if (! isset($this->strategy)) {
+            throw new RuntimeException("You have not set an Authentication Strategy, if none is required please use NullStrategy");
         }
 
         $resource = $this->factory()->get($name);

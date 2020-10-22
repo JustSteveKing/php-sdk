@@ -3,17 +3,17 @@
 namespace JustSteveKing\PhpSdk\Tests;
 
 use DI\Container;
-use JustSteveKing\HttpAuth\Strategies\BasicStrategy;
-use JustSteveKing\HttpAuth\Strategies\Interfaces\StrategyInterface;
-use JustSteveKing\HttpSlim\HttpClient;
-use JustSteveKing\PhpSdk\Client;
-use JustSteveKing\PhpSdk\Resources\AbstractResource;
-use JustSteveKing\UriBuilder\Uri;
-use PHPUnit\Framework\TestCase;
-use Psr\Container\ContainerInterface;
-use Psr\Http\Message\ResponseInterface;
 use RuntimeException;
+use PHPUnit\Framework\TestCase;
+use JustSteveKing\PhpSdk\Client;
+use JustSteveKing\UriBuilder\Uri;
+use Psr\Container\ContainerInterface;
+use JustSteveKing\HttpSlim\HttpClient;
+use Psr\Http\Message\ResponseInterface;
 use Symfony\Component\HttpClient\Psr18Client;
+use JustSteveKing\HttpAuth\Strategies\BasicStrategy;
+use JustSteveKing\PhpSdk\Resources\AbstractResource;
+use JustSteveKing\HttpAuth\Strategies\Interfaces\StrategyInterface;
 
 class ClientTest extends TestCase
 {
@@ -132,6 +132,12 @@ class ClientTest extends TestCase
             protected string $path = 'name';
         });
 
+        $strategy = new BasicStrategy(
+            base64_encode("username:password")
+        );
+
+        $client->addStrategy($strategy);
+
         $this->assertEquals(
             'https://www.test.com/name',
             $client->name->uri()->toString()
@@ -158,6 +164,12 @@ class ClientTest extends TestCase
         $client->addResource('todos', new class extends AbstractResource {
             protected string $path = 'todos';
         });
+
+        $strategy = new BasicStrategy(
+            base64_encode("username:password")
+        );
+
+        $client->addStrategy($strategy);
 
         $this->assertInstanceOf(
             ResponseInterface::class,
