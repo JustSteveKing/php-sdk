@@ -2,10 +2,10 @@
 
 namespace JustSteveKing\PhpSdk\Resources;
 
-use JustSteveKing\UriBuilder\Uri;
-use JustSteveKing\HttpSlim\HttpClient;
-use Psr\Http\Message\ResponseInterface;
 use JustSteveKing\HttpAuth\Strategies\Interfaces\StrategyInterface;
+use JustSteveKing\HttpSlim\HttpClient;
+use JustSteveKing\UriBuilder\Uri;
+use Psr\Http\Message\ResponseInterface;
 
 abstract class AbstractResource
 {
