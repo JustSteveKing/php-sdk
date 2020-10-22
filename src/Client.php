@@ -2,12 +2,12 @@
 
 namespace JustSteveKing\PhpSdk;
 
-use RuntimeException;
-use JustSteveKing\UriBuilder\Uri;
-use Psr\Container\ContainerInterface;
+use JustSteveKing\HttpAuth\Strategies\Interfaces\StrategyInterface;
 use JustSteveKing\HttpSlim\HttpClient;
 use JustSteveKing\PhpSdk\Resources\AbstractResource;
-use JustSteveKing\HttpAuth\Strategies\Interfaces\StrategyInterface;
+use JustSteveKing\UriBuilder\Uri;
+use Psr\Container\ContainerInterface;
+use RuntimeException;
 
 class Client
 {
