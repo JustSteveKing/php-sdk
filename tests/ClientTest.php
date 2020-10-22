@@ -213,4 +213,30 @@ class ClientTest extends TestCase
             $client->strategy()
         );
     }
+
+    /**
+     * @test
+     */
+    public function it_will_throw_a_runtime_exception_if_strategy_is_not_set()
+    {
+        $this->expectException(RuntimeException::class);
+
+        $client = new Client(
+            new Container,
+            'https://jsonplaceholder.typicode.com'
+        );
+
+        $http = HttpClient::build(
+            new Psr18Client(), // http client (psr-18)
+            new Psr18Client(), // request factory (psr-17)
+            new Psr18Client() // stream factory (psr-17)
+        );
+        $client->addTransport($http);
+
+        $client->addResource('todos', new class extends AbstractResource {
+            protected string $path = 'todos';
+        });
+
+        $client->todos->get();
+    }
 }
