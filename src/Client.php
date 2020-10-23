@@ -9,6 +9,9 @@ use JustSteveKing\UriBuilder\Uri;
 use Psr\Container\ContainerInterface;
 use RuntimeException;
 
+/**
+ * Class Client
+ */
 class Client
 {
     /**
@@ -31,6 +34,11 @@ class Client
      */
     private Uri $uri;
 
+    /**
+     * Client constructor.
+     *
+     * @param ClientBuilder $builder
+     */
     public function __construct(ClientBuilder $builder)
     {
         $this->uri = $builder->uri();
@@ -39,11 +47,20 @@ class Client
         $this->strategy = $builder->strategy();
     }
 
+    /**
+     * @return StrategyInterface
+     */
     public function strategy(): StrategyInterface
     {
         return $this->strategy;
     }
 
+    /**
+     * @param string           $name
+     * @param AbstractResource $resource
+     *
+     * @return $this
+     */
     public function addResource(string $name, AbstractResource $resource): self
     {
         $this->factory()->set($name, $resource);
@@ -51,16 +68,27 @@ class Client
         return $this;
     }
 
+    /**
+     * @return Uri
+     */
     public function uri(): Uri
     {
         return $this->uri;
     }
 
+    /**
+     * @return ContainerInterface
+     */
     public function factory(): ContainerInterface
     {
         return $this->factory;
     }
 
+    /**
+     * @param string $name
+     *
+     * @return mixed
+     */
     public function __get(string $name)
     {
         if (! $this->factory()->has($name)) {
