@@ -41,9 +41,9 @@ class Client
      */
     public function __construct(ClientBuilder $builder)
     {
-        $this->uri = $builder->uri();
-        $this->http = $builder->transport();
-        $this->factory = $builder->factory();
+        $this->uri      = $builder->uri();
+        $this->http     = $builder->transport();
+        $this->factory  = $builder->factory();
         $this->strategy = $builder->strategy();
     }
 
@@ -91,16 +91,16 @@ class Client
      */
     public function __get(string $name)
     {
-        if (! $this->factory()->has($name)) {
+        if (!$this->factory()->has($name)) {
             throw new RuntimeException("Resource {$name} has not been registered with the SDK.");
         }
 
         $resource = $this->factory()->get($name);
 
         $resource->setHttp($this->http)
-            ->setUri($this->uri)
-            ->setStrategy($this->strategy)
-            ->loadPath();
+                 ->setUri($this->uri)
+                 ->setStrategy($this->strategy)
+                 ->loadPath();
 
         return $resource;
     }
