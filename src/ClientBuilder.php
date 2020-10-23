@@ -2,11 +2,11 @@
 
 namespace JustSteveKing\PhpSdk;
 
+use JustSteveKing\HttpAuth\Strategies\Interfaces\StrategyInterface;
+use JustSteveKing\HttpAuth\Strategies\NullStrategy;
+use JustSteveKing\HttpSlim\HttpClient;
 use JustSteveKing\UriBuilder\Uri;
 use Psr\Container\ContainerInterface;
-use JustSteveKing\HttpSlim\HttpClient;
-use JustSteveKing\HttpAuth\Strategies\NullStrategy;
-use JustSteveKing\HttpAuth\Strategies\Interfaces\StrategyInterface;
 
 class ClientBuilder
 {
@@ -54,6 +54,7 @@ class ClientBuilder
     {
         if (is_null($strategy)) {
             $this->strategy = new NullStrategy();
+
             return;
         }
         $this->strategy = $strategy;

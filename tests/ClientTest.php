@@ -3,19 +3,19 @@
 namespace JustSteveKing\PhpSdk\Tests;
 
 use DI\Container;
-use RuntimeException;
 use DI\ContainerBuilder;
-use PHPUnit\Framework\TestCase;
-use JustSteveKing\PhpSdk\Client;
-use JustSteveKing\UriBuilder\Uri;
-use Psr\Container\ContainerInterface;
-use JustSteveKing\HttpSlim\HttpClient;
-use JustSteveKing\PhpSdk\ClientBuilder;
-use Psr\Http\Message\ResponseInterface;
-use Symfony\Component\HttpClient\Psr18Client;
 use JustSteveKing\HttpAuth\Strategies\BasicStrategy;
-use JustSteveKing\PhpSdk\Resources\AbstractResource;
 use JustSteveKing\HttpAuth\Strategies\Interfaces\StrategyInterface;
+use JustSteveKing\HttpSlim\HttpClient;
+use JustSteveKing\PhpSdk\Client;
+use JustSteveKing\PhpSdk\ClientBuilder;
+use JustSteveKing\PhpSdk\Resources\AbstractResource;
+use JustSteveKing\UriBuilder\Uri;
+use PHPUnit\Framework\TestCase;
+use Psr\Container\ContainerInterface;
+use Psr\Http\Message\ResponseInterface;
+use RuntimeException;
+use Symfony\Component\HttpClient\Psr18Client;
 
 class ClientTest extends TestCase
 {
@@ -52,7 +52,7 @@ class ClientTest extends TestCase
             $this->container()
         );
 
-        $client = new Client($builder );
+        $client = new Client($builder);
     }
 
     /**
@@ -66,7 +66,7 @@ class ClientTest extends TestCase
             $this->strategy(),
             $this->container()
         );
-        $client = new Client($builder );
+        $client = new Client($builder);
 
         $this->assertInstanceOf(
             Uri::class,
@@ -230,6 +230,7 @@ class ClientTest extends TestCase
         $builder = new ContainerBuilder();
         $builder->useAutowiring(true);
         $builder->useAnnotations(false);
+
         return $builder->build();
     }
 }

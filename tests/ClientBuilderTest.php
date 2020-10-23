@@ -3,15 +3,15 @@
 namespace JustSteveKing\PhpSdk\Tests;
 
 use DI\ContainerBuilder;
-use PHPUnit\Framework\TestCase;
-use JustSteveKing\UriBuilder\Uri;
-use Psr\Container\ContainerInterface;
-use JustSteveKing\HttpSlim\HttpClient;
-use JustSteveKing\PhpSdk\ClientBuilder;
-use Symfony\Component\HttpClient\Psr18Client;
-use JustSteveKing\HttpAuth\Strategies\NullStrategy;
 use JustSteveKing\HttpAuth\Strategies\BasicStrategy;
 use JustSteveKing\HttpAuth\Strategies\Interfaces\StrategyInterface;
+use JustSteveKing\HttpAuth\Strategies\NullStrategy;
+use JustSteveKing\HttpSlim\HttpClient;
+use JustSteveKing\PhpSdk\ClientBuilder;
+use JustSteveKing\UriBuilder\Uri;
+use PHPUnit\Framework\TestCase;
+use Psr\Container\ContainerInterface;
+use Symfony\Component\HttpClient\Psr18Client;
 
 class ClientBuilderTest extends TestCase
 {
@@ -31,27 +31,27 @@ class ClientBuilderTest extends TestCase
      */
     public function it_will_add_a_transport_layer()
     {
-            $builder = new ClientBuilder(
-                Uri::fromString('https://www.test.com'),
-                $this->http(),
-                $this->strategy(),
-                $this->container()
-            );
+        $builder = new ClientBuilder(
+            Uri::fromString('https://www.test.com'),
+            $this->http(),
+            $this->strategy(),
+            $this->container()
+        );
 
-            $this->assertInstanceOf(
-                HttpClient::class,
-                $builder->transport()
-            );
+        $this->assertInstanceOf(
+            HttpClient::class,
+            $builder->transport()
+        );
 
-            $builder = new ClientBuilder();
-            $builder->setTransport(
-                $this->http()
-            );
+        $builder = new ClientBuilder();
+        $builder->setTransport(
+            $this->http()
+        );
 
-            $this->assertInstanceOf(
-                HttpClient::class,
-                $builder->transport()
-            );
+        $this->assertInstanceOf(
+            HttpClient::class,
+            $builder->transport()
+        );
     }
 
     /**
@@ -59,27 +59,27 @@ class ClientBuilderTest extends TestCase
      */
     public function it_will_add_a_uri()
     {
-            $builder = new ClientBuilder(
-                Uri::fromString('https://www.test.com'),
-                $this->http(),
-                $this->strategy(),
-                $this->container()
-            );
+        $builder = new ClientBuilder(
+            Uri::fromString('https://www.test.com'),
+            $this->http(),
+            $this->strategy(),
+            $this->container()
+        );
 
-            $this->assertInstanceOf(
-                Uri::class,
-                $builder->uri()
-            );
+        $this->assertInstanceOf(
+            Uri::class,
+            $builder->uri()
+        );
 
-            $builder = new ClientBuilder();
-            $builder->setUri(
-                Uri::fromString('https://www.test.com'),
-            );
+        $builder = new ClientBuilder();
+        $builder->setUri(
+            Uri::fromString('https://www.test.com'),
+        );
 
-            $this->assertInstanceOf(
-                Uri::class,
-                $builder->uri()
-            );
+        $this->assertInstanceOf(
+            Uri::class,
+            $builder->uri()
+        );
     }
 
     /**
@@ -87,27 +87,27 @@ class ClientBuilderTest extends TestCase
      */
     public function it_will_add_a_strategy()
     {
-            $builder = new ClientBuilder(
-                Uri::fromString('https://www.test.com'),
-                $this->http(),
-                $this->strategy(),
-                $this->container()
-            );
+        $builder = new ClientBuilder(
+            Uri::fromString('https://www.test.com'),
+            $this->http(),
+            $this->strategy(),
+            $this->container()
+        );
 
-            $this->assertInstanceOf(
-                StrategyInterface::class,
-                $builder->strategy()
-            );
+        $this->assertInstanceOf(
+            StrategyInterface::class,
+            $builder->strategy()
+        );
 
-            $builder = new ClientBuilder();
-            $builder->setStrategy(
-                $this->strategy()
-            );
+        $builder = new ClientBuilder();
+        $builder->setStrategy(
+            $this->strategy()
+        );
 
-            $this->assertInstanceOf(
-                StrategyInterface::class,
-                $builder->strategy()
-            );
+        $this->assertInstanceOf(
+            StrategyInterface::class,
+            $builder->strategy()
+        );
     }
 
     /**
@@ -140,27 +140,27 @@ class ClientBuilderTest extends TestCase
      */
     public function it_will_add_a_factory()
     {
-            $builder = new ClientBuilder(
-                Uri::fromString('https://www.test.com'),
-                $this->http(),
-                $this->strategy(),
-                $this->container()
-            );
+        $builder = new ClientBuilder(
+            Uri::fromString('https://www.test.com'),
+            $this->http(),
+            $this->strategy(),
+            $this->container()
+        );
 
-            $this->assertInstanceOf(
-                ContainerInterface::class,
-                $builder->factory()
-            );
+        $this->assertInstanceOf(
+            ContainerInterface::class,
+            $builder->factory()
+        );
 
-            $builder = new ClientBuilder();
-            $builder->setFactory(
-                $this->container()
-            );
+        $builder = new ClientBuilder();
+        $builder->setFactory(
+            $this->container()
+        );
 
-            $this->assertInstanceOf(
-                ContainerInterface::class,
-                $builder->factory()
-            );
+        $this->assertInstanceOf(
+            ContainerInterface::class,
+            $builder->factory()
+        );
     }
 
     private function http(): HttpClient
@@ -184,6 +184,7 @@ class ClientBuilderTest extends TestCase
         $builder = new ContainerBuilder();
         $builder->useAutowiring(true);
         $builder->useAnnotations(false);
+
         return $builder->build();
     }
 }
