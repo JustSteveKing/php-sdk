@@ -98,9 +98,9 @@ class Client
         $resource = $this->factory()->get($name);
 
         $resource->setHttp($this->http)
-            ->setUri($this->uri)
-            ->setStrategy($this->strategy)
-            ->loadPath();
+                 ->setUri($this->uri)
+                 ->setStrategy($this->strategy)
+                 ->loadPath();
 
         return $resource;
     }
