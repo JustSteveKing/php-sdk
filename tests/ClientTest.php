@@ -89,6 +89,29 @@ class ClientTest extends TestCase
     /**
      * @test
      */
+    public function it_will_allow_access_to_the_http_client()
+    {
+        $builder = new ClientBuilder(
+            Uri::fromString('https://www.test.com'),
+            $this->http(),
+            $this->strategy(),
+            $this->container()
+        );
+        $client = new Client($builder);
+
+        $client->addResource('name', new class extends AbstractResource {
+            protected string $path = 'name';
+        });
+
+        $this->assertInstanceOf(
+            HttpClient::class,
+            $client->name->http()
+        );
+    }
+
+    /**
+     * @test
+     */
     public function it_will_let_me_access_the_container()
     {
         $builder = new ClientBuilder(
@@ -159,6 +182,23 @@ class ClientTest extends TestCase
     /**
      * @test
      */
+    public function it_will_throw_a_runtime_exception_if_resource_is_not_registered()
+    {
+        $this->expectException(RuntimeException::class);
+        $builder = new ClientBuilder(
+            Uri::fromString('https://jsonplaceholder.typicode.com'),
+            $this->http(),
+            $this->strategy(),
+            $this->container()
+        );
+
+        $client = new Client($builder);
+        $client->fake->get();
+    }
+
+    /**
+     * @test
+     */
     public function it_will_perform_requests_on_the_resource()
     {
         $builder = new ClientBuilder(
@@ -182,6 +222,31 @@ class ClientTest extends TestCase
         $this->assertInstanceOf(
             ResponseInterface::class,
             $client->todos->find(1)
+        );
+
+        $this->assertInstanceOf(
+            ResponseInterface::class,
+            $client->todos->create([])
+        );
+
+        $this->assertInstanceOf(
+            ResponseInterface::class,
+            $client->todos->update(1, [])
+        );
+
+        $this->assertInstanceOf(
+            ResponseInterface::class,
+            $client->todos->delete(1)
+        );
+
+        $this->assertInstanceOf(
+            ResponseInterface::class,
+            $client->todos->where('name', 'test')->get()
+        );
+
+        $this->assertEquals(
+            ['name' => 'test'],
+            $client->todos->where('name', 'test')->uri()->query()->all()
         );
     }
 
