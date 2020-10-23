@@ -184,4 +184,19 @@ abstract class AbstractResource
             $this->strategy()->getHeader($this->authHeader)
         );
     }
+
+    /**
+     * @param string $key
+     * @param $value
+     * @return $this
+     */
+    public function where(string $key, $value): self
+    {
+        $this->uri()->addQueryParam(
+            $key,
+            $value
+        );
+
+        return $this;
+    }
 }
