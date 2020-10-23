@@ -8,16 +8,39 @@ use JustSteveKing\HttpSlim\HttpClient;
 use JustSteveKing\UriBuilder\Uri;
 use Psr\Container\ContainerInterface;
 
+/**
+ * Class ClientBuilder
+ */
 class ClientBuilder
 {
+    /**
+     * @var Uri|null
+     */
     protected ?Uri $uri;
 
+    /**
+     * @var HttpClient|null
+     */
     protected ?HttpClient $transport;
 
+    /**
+     * @var StrategyInterface|null
+     */
     protected ?StrategyInterface $strategy;
 
+    /**
+     * @var ContainerInterface|null
+     */
     protected ?ContainerInterface $factory;
 
+    /**
+     * ClientBuilder constructor.
+     *
+     * @param Uri|null                $uri
+     * @param HttpClient|null         $transport
+     * @param StrategyInterface|null  $strategy
+     * @param ContainerInterface|null $factory
+     */
     public function __construct(
         Uri $uri = null,
         HttpClient $transport = null,
@@ -30,26 +53,41 @@ class ClientBuilder
         $this->setFactory($factory);
     }
 
+    /**
+     * @param Uri|null $uri
+     */
     public function setUri(?Uri $uri): void
     {
         $this->uri = $uri;
     }
 
+    /**
+     * @return Uri
+     */
     public function uri(): Uri
     {
         return $this->uri;
     }
 
+    /**
+     * @param HttpClient|null $transport
+     */
     public function setTransport(?HttpClient $transport): void
     {
         $this->transport = $transport;
     }
 
+    /**
+     * @return HttpClient
+     */
     public function transport(): HttpClient
     {
         return $this->transport;
     }
 
+    /**
+     * @param StrategyInterface|null $strategy
+     */
     public function setStrategy(?StrategyInterface $strategy): void
     {
         if (is_null($strategy)) {
@@ -60,16 +98,25 @@ class ClientBuilder
         $this->strategy = $strategy;
     }
 
+    /**
+     * @return StrategyInterface
+     */
     public function strategy(): StrategyInterface
     {
         return $this->strategy;
     }
 
+    /**
+     * @param ContainerInterface|null $factory
+     */
     public function setFactory(?ContainerInterface $factory): void
     {
         $this->factory = $factory;
     }
 
+    /**
+     * @return ContainerInterface
+     */
     public function factory(): ContainerInterface
     {
         return $this->factory;
