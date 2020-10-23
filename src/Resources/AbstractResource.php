@@ -134,4 +134,54 @@ abstract class AbstractResource
             $this->strategy()->getHeader($this->authHeader)
         );
     }
+
+    /**
+     * @param array $data
+     * @return ResponseInterface
+     * @throws \Psr\Http\Client\ClientExceptionInterface
+     */
+    public function create(array $data): ResponseInterface
+    {
+        return $this->http->post(
+            $this->uri->toString(),
+            $data,
+            $this->strategy()->getHeader($this->authHeader)
+        );
+    }
+
+    /**
+     * @param $identifier
+     * @param array $data
+     * @param string $method
+     * @return ResponseInterface
+     */
+    public function update($identifier, array $data, string $method = 'patch'): ResponseInterface
+    {
+        $this->uri->addPath(
+            "{$this->path}/{$identifier}"
+        );
+
+        return $this->http->{$method}(
+            $this->uri->toString(),
+            $data,
+            $this->strategy()->getHeader($this->authHeader)
+        );
+    }
+
+    /**
+     * @param $identifier
+     * @return ResponseInterface
+     * @throws \Psr\Http\Client\ClientExceptionInterface
+     */
+    public function delete($identifier): ResponseInterface
+    {
+        $this->uri->addPath(
+            "{$this->path}/{$identifier}"
+        );
+
+        return $this->http->delete(
+            $this->uri()->toString(),
+            $this->strategy()->getHeader($this->authHeader)
+        );
+    }
 }
