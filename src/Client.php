@@ -56,7 +56,7 @@ class Client
     }
 
     /**
-     * @param string           $name
+     * @param string $name
      * @param AbstractResource $resource
      *
      * @return $this
@@ -91,16 +91,16 @@ class Client
      */
     public function __get(string $name)
     {
-        if (! $this->factory()->has($name)) {
+        if (!$this->factory()->has($name)) {
             throw new RuntimeException("Resource {$name} has not been registered with the SDK.");
         }
 
         $resource = $this->factory()->get($name);
 
         $resource->setHttp($this->http)
-                 ->setUri($this->uri)
-                 ->setStrategy($this->strategy)
-                 ->loadPath();
+            ->setUri($this->uri)
+            ->setStrategy($this->strategy)
+            ->loadPath();
 
         return $resource;
     }
