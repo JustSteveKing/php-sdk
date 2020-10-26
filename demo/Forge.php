@@ -13,6 +13,10 @@ use Symfony\Component\HttpClient\Psr18Client;
 
 class Forge extends Client
 {
+    /**
+     * Forge constructor.
+     * @param string $apikey
+     */
     public function __construct(string $apikey)
     {
         parent::__construct(new ClientBuilder(
@@ -29,6 +33,10 @@ class Forge extends Client
         ));
     }
 
+    /**
+     * @param string $apikey
+     * @return static
+     */
     public static function illuminate(string $apikey): self
     {
         $client = new self($apikey);
