@@ -48,6 +48,16 @@ abstract class AbstractResource
     protected StrategyInterface $strategy;
 
     /**
+     * @var array
+     */
+    protected array $relations = [];
+
+    /**
+     * @var bool
+     */
+    protected bool $strictRelations = false;
+
+    /**
      * @return array|null
      */
     public function getWith():? array
@@ -61,6 +71,14 @@ abstract class AbstractResource
      */
     public function with(array $with): self
     {
+        if ($this->strictRelations) {
+            foreach ($with as $resource) {
+                if (! in_array($resource, $this->relations)) {
+                    throw new \RuntimeException("Cannot sideload {$resource} as it has not been registered as an available resource");
+                }
+            }
+        }
+
         $this->with = $with;
 
         return $this;

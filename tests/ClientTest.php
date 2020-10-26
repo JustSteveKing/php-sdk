@@ -266,6 +266,10 @@ class ClientTest extends TestCase
 
         $client->addResource('todos', new class extends AbstractResource {
             protected string $path = 'todos';
+
+            protected array $relations = [
+                'test'
+            ];
         });
 
         $this->assertEquals(
@@ -331,6 +335,34 @@ class ClientTest extends TestCase
             StrategyInterface::class,
             $client->strategy()
         );
+    }
+
+    /**
+     * @test
+     */
+    public function it_will_throw_a_runtime_exception_if_resource_is_in_strict_mode_and_relation_not_listed()
+    {
+        $this->expectException(RuntimeException::class);
+        $builder = new ClientBuilder(
+            Uri::fromString('https://jsonplaceholder.typicode.com'),
+            $this->http(),
+            $this->strategy(),
+            $this->container()
+        );
+
+        $client = new Client($builder);
+
+        $client->addResource('todos', new class extends AbstractResource {
+            protected string $path = 'todos';
+
+            protected bool $strictRelations = true;
+
+            protected array $relations = [
+                'test'
+            ];
+        });
+
+        $client->todos->with(['user'])->load(123)->find(1);
     }
 
     private function http(): HttpClient
