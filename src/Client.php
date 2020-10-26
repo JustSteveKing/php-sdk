@@ -91,7 +91,7 @@ class Client
      */
     public function __get(string $name)
     {
-        if (!$this->factory()->has($name)) {
+        if (! $this->factory()->has($name)) {
             throw new RuntimeException("Resource {$name} has not been registered with the SDK.");
         }
 
