@@ -13,6 +13,11 @@ use Psr\Http\Message\ResponseInterface;
 abstract class AbstractResource
 {
     /**
+     * @var array|null
+     */
+    protected ?array $with = null;
+
+    /**
      * @var Uri
      */
     protected Uri $uri;
@@ -36,6 +41,28 @@ abstract class AbstractResource
      * @var StrategyInterface
      */
     protected StrategyInterface $strategy;
+
+    /**
+     * @param array $with
+     * @return $this
+     */
+    public function with(array $with): self
+    {
+        $this->with = $with;
+
+        return $this;
+    }
+
+    /**
+     * @param $identifier
+     * @return $this
+     */
+    public function load($identifier): self
+    {
+        $this->path = "{$this->path}/{$identifier}";
+
+        return $this;
+    }
 
     /**
      * @return Uri
@@ -112,6 +139,12 @@ abstract class AbstractResource
      */
     public function get(): ResponseInterface
     {
+        if (! is_null($this->with)) {
+            $this->uri->addPath(
+                "{$this->path}/" . implode("/", $this->with)
+            );
+        }
+
         return $this->http->get(
             $this->uri->toString(),
             $this->strategy()->getHeader($this->authHeader)
@@ -125,9 +158,19 @@ abstract class AbstractResource
      */
     public function find($identifier): ResponseInterface
     {
+
+        if (! is_null($this->with)) {
+            $this->uri->addPath(
+                "{$this->path}/" . implode("/", $this->with)
+            );
+        }
+
         $this->uri->addPath(
-            "{$this->path}/{$identifier}"
+            "{$this->uri->path()}/{$identifier}"
         );
+
+        dump($this->uri()->toString());
+        die();
 
         return $this->http->get(
             $this->uri->toString(),

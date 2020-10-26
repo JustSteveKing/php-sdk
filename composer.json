@@ -32,7 +32,8 @@
   },
   "autoload-dev": {
     "psr-4": {
-      "JustSteveKing\\PhpSdk\\Tests\\": "tests/"
+      "JustSteveKing\\PhpSdk\\Tests\\": "tests/",
+      "Demo\\": "demo/"
     }
   },
   "scripts": {
