@@ -158,7 +158,6 @@ abstract class AbstractResource
      */
     public function find($identifier): ResponseInterface
     {
-
         if (! is_null($this->with)) {
             $this->uri->addPath(
                 "{$this->path}/" . implode("/", $this->with)
