@@ -268,7 +268,7 @@ class ClientTest extends TestCase
             protected string $path = 'todos';
 
             protected array $relations = [
-                'test'
+                'test',
             ];
         });
 
@@ -358,7 +358,7 @@ class ClientTest extends TestCase
             protected bool $strictRelations = true;
 
             protected array $relations = [
-                'test'
+                'test',
             ];
         });
 
