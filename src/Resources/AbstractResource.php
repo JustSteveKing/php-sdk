@@ -18,6 +18,11 @@ abstract class AbstractResource
     protected ?array $with = null;
 
     /**
+     * @var string|null
+     */
+    protected ?string $load = null;
+
+    /**
      * @var Uri
      */
     protected Uri $uri;
@@ -43,6 +48,14 @@ abstract class AbstractResource
     protected StrategyInterface $strategy;
 
     /**
+     * @return array|null
+     */
+    public function getWith():? array
+    {
+        return $this->with;
+    }
+
+    /**
      * @param array $with
      * @return $this
      */
@@ -54,12 +67,20 @@ abstract class AbstractResource
     }
 
     /**
+     * @return string|null
+     */
+    public function getLoad():? string
+    {
+        return $this->load;
+    }
+
+    /**
      * @param $identifier
      * @return $this
      */
     public function load($identifier): self
     {
-        $this->path = "{$this->path}/{$identifier}";
+        $this->load = (string) $identifier;
 
         return $this;
     }
@@ -139,12 +160,6 @@ abstract class AbstractResource
      */
     public function get(): ResponseInterface
     {
-        if (! is_null($this->with)) {
-            $this->uri->addPath(
-                "{$this->path}/" . implode("/", $this->with)
-            );
-        }
-
         return $this->http->get(
             $this->uri->toString(),
             $this->strategy()->getHeader($this->authHeader)
@@ -158,18 +173,21 @@ abstract class AbstractResource
      */
     public function find($identifier): ResponseInterface
     {
-        if (! is_null($this->with)) {
-            $this->uri->addPath(
-                "{$this->path}/" . implode("/", $this->with)
-            );
-        }
-
         $this->uri->addPath(
             "{$this->uri->path()}/{$identifier}"
         );
 
-        dump($this->uri()->toString());
-        die();
+        if (! is_null($this->with)) {
+            $this->uri->addPath(
+                "{$this->uri->path()}/" . implode("/", $this->with)
+            );
+        }
+
+        if (! is_null($this->load)) {
+            $this->uri->addPath(
+                "{$this->uri->path()}/{$this->load}"
+            );
+        }
 
         return $this->http->get(
             $this->uri->toString(),
@@ -184,6 +202,12 @@ abstract class AbstractResource
      */
     public function create(array $data): ResponseInterface
     {
+        if (! is_null($this->with)) {
+            $this->uri->addPath(
+                "{$this->uri->path()}/" . implode("/", $this->with)
+            );
+        }
+
         return $this->http->post(
             $this->uri->toString(),
             $data,
@@ -200,8 +224,14 @@ abstract class AbstractResource
     public function update($identifier, array $data, string $method = 'patch'): ResponseInterface
     {
         $this->uri->addPath(
-            "{$this->path}/{$identifier}"
+            "{$this->uri->path()}/{$identifier}"
         );
+
+        if (! is_null($this->with)) {
+            $this->uri->addPath(
+                "{$this->uri->path()}/" . implode("/", $this->with)
+            );
+        }
 
         return $this->http->{$method}(
             $this->uri->toString(),
@@ -218,8 +248,14 @@ abstract class AbstractResource
     public function delete($identifier): ResponseInterface
     {
         $this->uri->addPath(
-            "{$this->path}/{$identifier}"
+            "{$this->uri->path()}/{$identifier}"
         );
+
+        if (! is_null($this->with)) {
+            $this->uri->addPath(
+                "{$this->uri->path()}/" . implode("/", $this->with)
+            );
+        }
 
         return $this->http->delete(
             $this->uri()->toString(),

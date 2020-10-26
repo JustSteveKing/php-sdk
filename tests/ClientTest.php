@@ -253,6 +253,65 @@ class ClientTest extends TestCase
     /**
      * @test
      */
+    public function it_will_append_extra_parts_to_the_uri_path()
+    {
+        $builder = new ClientBuilder(
+            Uri::fromString('https://jsonplaceholder.typicode.com'),
+            $this->http(),
+            $this->strategy(),
+            $this->container()
+        );
+
+        $client = new Client($builder);
+
+        $client->addResource('todos', new class extends AbstractResource {
+            protected string $path = 'todos';
+        });
+
+        $this->assertEquals(
+            "https://jsonplaceholder.typicode.com/todos",
+            $client->todos->uri()->toString()
+        );
+
+        $client->todos->with(['test']);
+
+        $this->assertEquals(
+            ['test'],
+            $client->todos->getWith()
+        );
+
+        $client->todos->load(123);
+
+        $this->assertEquals(
+            "123",
+            $client->todos->getLoad()
+        );
+
+        $client->todos->with(['user']);
+        $this->assertInstanceOf(
+            ResponseInterface::class,
+            $client->todos->with(['user'])->load(123)->find(1)
+        );
+
+        $this->assertInstanceOf(
+            ResponseInterface::class,
+            $client->todos->with(['user'])->load(123)->create([])
+        );
+
+        $this->assertInstanceOf(
+            ResponseInterface::class,
+            $client->todos->with(['user'])->load(123)->update(123, [])
+        );
+
+        $this->assertInstanceOf(
+            ResponseInterface::class,
+            $client->todos->with(['user'])->load(123)->delete(123)
+        );
+    }
+
+    /**
+     * @test
+     */
     public function it_will_allow_me_to_pass_through_an_auth_strategy()
     {
         $builder = new ClientBuilder(
