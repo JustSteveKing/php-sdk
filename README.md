@@ -103,3 +103,6 @@ The available methods on resources are:
 - `update($identifier, array $data, string $method = 'patch')` update a single resource with a method override
 - `delete($identifier)` delete a single resource
 - `where(string $key, $value)` add query parameters to your URI query.
+
+
+It is highly recommended that you use these internally in your API to give you the ability to control the process.
