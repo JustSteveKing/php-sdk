@@ -17,9 +17,9 @@
 [badge-php]: https://img.shields.io/packagist/php-v/juststeveking/php-sdk.svg?style=flat-square
 [badge-downloads]: https://img.shields.io/packagist/dt/juststeveking/php-sdk.svg?style=flat-square&colorB=mediumvioletred
 
-[packagist]: https://packagist.org/packages/juststeveking/php-sdk.svg
+[packagist]: https://packagist.org/packages/juststeveking/php-sdk
 [php]: https://php.net
-[downloads]: https://packagist.org/packages/juststeveking/php-sdk.svg
+[downloads]: https://packagist.org/packages/juststeveking/php-sdk
 <!-- BADGES_END -->
 
 A base sdk for your PHP sdks.
