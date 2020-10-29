@@ -1,6 +1,12 @@
 {
   "name": "juststeveking/php-sdk",
-  "description": "A base sdk for your PHP sdks",
+  "description": "A base sdk for your PHP SDKs",
+  "keywords": [
+    "http",
+    "sdk",
+    "psr18",
+    "psr-18"
+  ],
   "type": "library",
   "license": "MIT",
   "authors": [
