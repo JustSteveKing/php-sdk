@@ -283,7 +283,7 @@ abstract class AbstractResource
 
     /**
      * @param string $key
-     * @param $value
+     * @param mixed $value
      * @return $this
      */
     public function where(string $key, $value): self

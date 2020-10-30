@@ -19,7 +19,7 @@
   ],
   "minimum-stability": "dev",
   "require": {
-    "php": "^7.4",
+    "php": "^7.4|^8.0",
     "juststeveking/http-auth-strategies": "^1.0",
     "juststeveking/http-slim": "dev-master",
     "juststeveking/uri-builder": "^1.0",
