@@ -20,10 +20,10 @@
   "minimum-stability": "dev",
   "require": {
     "php": "^7.4|^8.0",
-    "juststeveking/http-auth-strategies": "^1.2.0",
-    "juststeveking/http-slim": "^1.2.1",
-    "juststeveking/uri-builder": "^1.1",
-    "psr/container": "^1.1@dev"
+    "juststeveking/http-auth-strategies": "~1.2.0",
+    "juststeveking/http-slim": "~1.2.1",
+    "juststeveking/uri-builder": "~1.1",
+    "psr/container": "~1.1@dev"
   },
   "require-dev": {
     "nyholm/psr7": "^1.0@dev",
