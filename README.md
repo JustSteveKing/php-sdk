@@ -87,7 +87,7 @@ $sdk->addResource('ideas', new class extends AbstractResource {
 });
 ```
 
-The resource we just added will not be accessible by its key "ideas" to forward calls to the resource:
+The resource we just added will now be accessible by its key "ideas" to forward calls to the resource:
 
 ```php
 $sdk->ideas->get();
