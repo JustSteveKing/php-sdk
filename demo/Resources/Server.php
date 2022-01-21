@@ -2,9 +2,10 @@
 
 namespace Demo\Resources;
 
+use JustSteveKing\PhpSdk\Contracts\ResourceContract;
 use JustSteveKing\PhpSdk\Resources\AbstractResource;
 
-class Server extends AbstractResource
+class Server extends AbstractResource implements ResourceContract
 {
     /**
      * @var string
@@ -17,12 +18,24 @@ class Server extends AbstractResource
      */
     public function databases($identifier = null): self
     {
-        $this->with = ['databases'];
+        $this->with(
+            with: ['databases'],
+        );
 
         if (!is_null($identifier)) {
-            $this->load = $identifier;
+            $this->load(
+                identifier: $identifier,
+            );
         }
 
         return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public static function name(): string
+    {
+        return 'servers';
     }
 }

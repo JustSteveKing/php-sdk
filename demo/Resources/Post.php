@@ -2,18 +2,20 @@
 
 declare(strict_types=1);
 
-namespace JustSteveKing\PhpSdk\Tests\Stubs;
+namespace Demo\Resources;
 
 use JustSteveKing\PhpSdk\Contracts\ResourceContract;
 use JustSteveKing\PhpSdk\Resources\AbstractResource;
 
-class ProjectResource extends AbstractResource implements ResourceContract
+class Post extends AbstractResource implements ResourceContract
 {
+    protected string $path = '/posts';
+
     /**
      * @return string
      */
     public static function name(): string
     {
-        return 'projects';
+        return 'posts';
     }
 }
