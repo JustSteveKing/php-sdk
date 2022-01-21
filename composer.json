@@ -17,20 +17,18 @@
       "homepage": "https://www.juststeveking.uk/"
     }
   ],
-  "minimum-stability": "dev",
   "require": {
-    "php": "^7.4|^8.0",
-    "juststeveking/http-auth-strategies": "~1.2.0",
-    "juststeveking/http-slim": "~1.2.1",
-    "juststeveking/uri-builder": "~1.1",
-    "psr/container": "~1.1@dev"
+    "php": "^8.0|^8.1",
+    "juststeveking/http-auth-strategies": "^v1.2",
+    "juststeveking/http-slim": "^2.0",
+    "juststeveking/uri-builder": "^2.0",
+    "phpfox/container": "^0.2.0"
   },
   "require-dev": {
-    "nyholm/psr7": "^1.0@dev",
-    "php-di/php-di": "dev-master",
-    "phpunit/phpunit": "^9.5@dev",
-    "symfony/http-client": "5.x-dev",
-    "symfony/var-dumper": "5.x-dev"
+    "nyholm/psr7": "^1.4",
+    "pestphp/pest": "^1.21",
+    "symfony/http-client": "^v6.0",
+    "symfony/var-dumper": "^v6.0"
   },
   "autoload": {
     "psr-4": {
@@ -44,9 +42,13 @@
     }
   },
   "scripts": {
-    "test": "./vendor/bin/phpunit --testdox --coverage-html build/coverage"
+    "test": "./vendor/bin/pest"
   },
+  "minimum-stability": "dev",
+  "prefer-stable": true,
   "config": {
-    "sort-packages": true
+    "sort-packages": true,
+    "preferred-install": "dist",
+    "optimize-autoloader": true
   }
 }

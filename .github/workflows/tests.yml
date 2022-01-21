@@ -10,7 +10,7 @@ jobs:
     strategy:
       fail-fast: true
       matrix:
-        php: [ 7.4, 8.0 ]
+        php: [ 8.0, 8.1 ]
 
     name: PHP ${{ matrix.php }} on Linux
 
@@ -30,14 +30,14 @@ jobs:
         run: composer install --no-interaction --prefer-dist
 
       - name: Execute tests
-        run: vendor/bin/phpunit --verbose --coverage-clover=coverage.clover
+        run: composer run test
 
   windows_tests:
     runs-on: windows-latest
     strategy:
       fail-fast: true
       matrix:
-        php: [ 7.4, 8.0 ]
+        php: [ 8.0, 8.1 ]
 
     name: PHP ${{ matrix.php }} on Windows
 
@@ -63,4 +63,4 @@ jobs:
         run: composer install --no-interaction --prefer-dist
 
       - name: Execute tests
-        run: vendor/bin/phpunit --verbose
+        run: composer run test

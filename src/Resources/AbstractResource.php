@@ -4,63 +4,38 @@ namespace JustSteveKing\PhpSdk\Resources;
 
 use JustSteveKing\HttpAuth\Strategies\Interfaces\StrategyInterface;
 use JustSteveKing\HttpSlim\HttpClient;
+use JustSteveKing\PhpSdk\SDK;
 use JustSteveKing\UriBuilder\Uri;
 use Psr\Http\Message\ResponseInterface;
+use RuntimeException;
 
 /**
  * Class AbstractResource
  */
 abstract class AbstractResource
 {
-    /**
-     * @var array|null
-     */
-    protected ?array $with = null;
+    public function __construct(
+        private SDK $sdk,
+        private null|string $path = null,
+        protected string $authHeader = 'Bearer',
+        private array $with = [],
+        protected array $relations = [],
+        protected bool $strictRelations = false,
+        private null|string $load = null,
+    ) {}
 
     /**
-     * @var string|null
+     * @return SDK
      */
-    protected ?string $load = null;
+    public function sdk(): SDK
+    {
+        return $this->sdk;
+    }
 
     /**
-     * @var Uri
+     * @return array
      */
-    protected Uri $uri;
-
-    /**
-     * @var string
-     */
-    protected string $path;
-
-    /**
-     * @var string
-     */
-    protected string $authHeader = 'Bearer';
-
-    /**
-     * @var HttpClient
-     */
-    protected HttpClient $http;
-
-    /**
-     * @var StrategyInterface
-     */
-    protected StrategyInterface $strategy;
-
-    /**
-     * @var array
-     */
-    protected array $relations = [];
-
-    /**
-     * @var bool
-     */
-    protected bool $strictRelations = false;
-
-    /**
-     * @return array|null
-     */
-    public function getWith():? array
+    public function getWith(): array
     {
         return $this->with;
     }
@@ -74,7 +49,9 @@ abstract class AbstractResource
         if ($this->strictRelations) {
             foreach ($with as $resource) {
                 if (! in_array($resource, $this->relations)) {
-                    throw new \RuntimeException("Cannot sideload {$resource} as it has not been registered as an available resource");
+                    throw new RuntimeException(
+                        message: "Cannot sideload {$resource} as it has not been registered as an available resource",
+                    );
                 }
             }
         }
@@ -87,16 +64,16 @@ abstract class AbstractResource
     /**
      * @return string|null
      */
-    public function getLoad():? string
+    public function getLoad(): string|null
     {
         return $this->load;
     }
 
     /**
-     * @param $identifier
+     * @param string|int $identifier
      * @return $this
      */
-    public function load($identifier): self
+    public function load(string|int $identifier): self
     {
         $this->load = (string) $identifier;
 
@@ -104,31 +81,15 @@ abstract class AbstractResource
     }
 
     /**
-     * @return Uri
-     */
-    public function uri(): Uri
-    {
-        return $this->uri;
-    }
-
-    /**
      * @param Uri $uri
      *
      * @return $this
      */
-    public function setUri(Uri $uri): self
+    public function uri(Uri $uri): self
     {
-        $this->uri = $uri;
+        $this->sdk()->uri = $uri;
 
         return $this;
-    }
-
-    /**
-     * @return HttpClient
-     */
-    public function http(): HttpClient
-    {
-        return $this->http;
     }
 
     /**
@@ -136,19 +97,11 @@ abstract class AbstractResource
      *
      * @return $this
      */
-    public function setHttp(HttpClient $http): self
+    public function client(HttpClient $http): self
     {
-        $this->http = $http;
+        $this->sdk()->client = $http;
 
         return $this;
-    }
-
-    /**
-     * @return StrategyInterface
-     */
-    public function strategy(): StrategyInterface
-    {
-        return $this->strategy;
     }
 
     /**
@@ -156,9 +109,9 @@ abstract class AbstractResource
      *
      * @return $this
      */
-    public function setStrategy(StrategyInterface $strategy): self
+    public function strategy(StrategyInterface $strategy): self
     {
-        $this->strategy = $strategy;
+        $this->sdk()->strategy = $strategy;
 
         return $this;
     }
@@ -168,48 +121,56 @@ abstract class AbstractResource
      */
     public function loadPath(): self
     {
-        $this->uri->addPath($this->path);
+        $this->sdk()->uri()->addPath(
+            path: $this->path,
+        );
 
         return $this;
     }
 
     /**
      * @return ResponseInterface
+     * @throws \Psr\Http\Client\ClientExceptionInterface
+     * @throws \Throwable
      */
     public function get(): ResponseInterface
     {
-        return $this->http->get(
-            $this->uri->toString(),
-            $this->strategy()->getHeader($this->authHeader)
+        return $this->sdk()->client()->get(
+            uri: $this->sdk()->uri()->toString(),
+            headers: $this->sdk()->strategy()->getHeader(
+                prefix: $this->authHeader,
+            )
         );
     }
 
     /**
-     * @param $identifier
-     *
+     * @param string|int $identifier
      * @return ResponseInterface
+     * @throws \Psr\Http\Client\ClientExceptionInterface
+     * @throws \Throwable
      */
-    public function find($identifier): ResponseInterface
+    public function find(string|int $identifier): ResponseInterface
     {
-        $this->uri->addPath(
-            "{$this->uri->path()}/{$identifier}"
+        $this->sdk()->uri()->addPath(
+            path: "{$this->sdk()->uri()->path()}/{$identifier}",
         );
 
         if (! is_null($this->with)) {
-            $this->uri->addPath(
-                "{$this->uri->path()}/" . implode("/", $this->with)
+            $this->sdk()->uri()->addPath(
+                path: "{$this->sdk()->uri()->path()}/" . implode("/", $this->with),
             );
         }
 
         if (! is_null($this->load)) {
-            $this->uri->addPath(
-                "{$this->uri->path()}/{$this->load}"
+            $this->sdk()->uri()->addPath(
+                path: "{$this->sdk()->uri()->path()}/{$this->load}",
             );
         }
 
-        return $this->http->get(
-            $this->uri->toString(),
-            $this->strategy()->getHeader($this->authHeader)
+        return $this->sdk()->client()->get(
+            uri: $this->sdk()->uri()->toString(),
+            headers: $this->sdk()->strategy()->getHeader(
+                prefix: $this->authHeader),
         );
     }
 
@@ -217,19 +178,22 @@ abstract class AbstractResource
      * @param array $data
      * @return ResponseInterface
      * @throws \Psr\Http\Client\ClientExceptionInterface
+     * @throws \Throwable
      */
     public function create(array $data): ResponseInterface
     {
         if (! is_null($this->with)) {
-            $this->uri->addPath(
-                "{$this->uri->path()}/" . implode("/", $this->with)
+            $this->sdk()->uri()->addPath(
+                path: "{$this->sdk()->uri()->path()}/" . implode("/", $this->with),
             );
         }
 
-        return $this->http->post(
-            $this->uri->toString(),
-            $data,
-            $this->strategy()->getHeader($this->authHeader)
+        return $this->sdk()->client()->post(
+            uri: $this->sdk()->uri()->toString(),
+            body: $data,
+            headers: $this->sdk()->strategy()->getHeader(
+                prefix: $this->authHeader,
+            ),
         );
     }
 
@@ -241,43 +205,48 @@ abstract class AbstractResource
      */
     public function update($identifier, array $data, string $method = 'patch'): ResponseInterface
     {
-        $this->uri->addPath(
-            "{$this->uri->path()}/{$identifier}"
+        $this->sdk()->uri()->addPath(
+            path: "{$this->sdk()->uri()->path()}/{$identifier}",
         );
 
         if (! is_null($this->with)) {
-            $this->uri->addPath(
-                "{$this->uri->path()}/" . implode("/", $this->with)
+            $this->sdk()->uri()->addPath(
+                path: "{$this->sdk()->uri()->path()}/" . implode("/", $this->with),
             );
         }
 
-        return $this->http->{$method}(
-            $this->uri->toString(),
-            $data,
-            $this->strategy()->getHeader($this->authHeader)
+        return $this->sdk()->client()->{$method}(
+            uri: $this->sdk()->uri()->toString(),
+            data: $data,
+            headers: $this->sdk()->strategy()->getHeader(
+                prefix: $this->authHeader,
+            ),
         );
     }
 
     /**
-     * @param $identifier
+     * @param string|int $identifier
      * @return ResponseInterface
      * @throws \Psr\Http\Client\ClientExceptionInterface
+     * @throws \Throwable
      */
-    public function delete($identifier): ResponseInterface
+    public function delete(string|int $identifier): ResponseInterface
     {
-        $this->uri->addPath(
-            "{$this->uri->path()}/{$identifier}"
+        $this->sdk()->uri()->addPath(
+            path: "{$this->sdk()->uri()->path()}/{$identifier}"
         );
 
         if (! is_null($this->with)) {
-            $this->uri->addPath(
-                "{$this->uri->path()}/" . implode("/", $this->with)
+            $this->sdk()->uri()->addPath(
+                path: "{$this->sdk()->uri()->path()}/" . implode("/", $this->with)
             );
         }
 
-        return $this->http->delete(
-            $this->uri()->toString(),
-            $this->strategy()->getHeader($this->authHeader)
+        return $this->sdk()->client()->delete(
+            uri: $this->sdk()->uri()->toString(),
+            headers: $this->sdk()->strategy()->getHeader(
+                prefix: $this->authHeader,
+            )
         );
     }
 
@@ -288,9 +257,9 @@ abstract class AbstractResource
      */
     public function where(string $key, $value): self
     {
-        $this->uri()->addQueryParam(
-            $key,
-            $value
+        $this->sdk()->uri()->addQueryParam(
+            key: $key,
+            value: $value
         );
 
         return $this;

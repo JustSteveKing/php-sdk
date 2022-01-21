@@ -3,15 +3,13 @@
 namespace Demo;
 
 use Demo\Resources\Server;
-use DI\Container;
 use JustSteveKing\HttpAuth\Strategies\BasicStrategy;
 use JustSteveKing\HttpSlim\HttpClient;
-use JustSteveKing\PhpSdk\Client;
-use JustSteveKing\PhpSdk\ClientBuilder;
+use JustSteveKing\PhpSdk\SDK;
 use JustSteveKing\UriBuilder\Uri;
-use Symfony\Component\HttpClient\Psr18Client;
+use PHPFox\Container\Container;
 
-class Forge extends Client
+class Forge extends SDK
 {
     /**
      * Forge constructor.
@@ -19,18 +17,16 @@ class Forge extends Client
      */
     public function __construct(string $apikey)
     {
-        parent::__construct(new ClientBuilder(
-            Uri::fromString('https://forge.laravel.com'),
-            HttpClient::build(
-                new Psr18Client(), // http client (psr-18)
-                new Psr18Client(), // request factory (psr-17)
-                new Psr18Client() // stream factory (psr-17)
+        parent::__construct(
+            uri: Uri::fromString(
+                uri: 'https://forge.laravel.com',
             ),
-            new BasicStrategy(
-                $apikey
+            client: HttpClient::build(),
+            container: Container::getInstance(),
+            strategy: new BasicStrategy(
+                authString: $apikey,
             ),
-            new Container()
-        ));
+        );
     }
 
     /**
@@ -42,7 +38,10 @@ class Forge extends Client
         $client = new self($apikey);
 
         // Add Resources
-        $client->addResource('servers', new Server());
+        $client->add(
+            name: Server::name(),
+            resource: Server::class,
+        );
 
         return $client;
     }
