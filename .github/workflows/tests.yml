@@ -30,7 +30,7 @@ jobs:
         run: composer install --no-interaction --prefer-dist
 
       - name: Execute tests
-        run: vendor/bin/phpunit --verbose --coverage-clover=coverage.clover
+        run: composer run test
 
   windows_tests:
     runs-on: windows-latest
@@ -63,4 +63,4 @@ jobs:
         run: composer install --no-interaction --prefer-dist
 
       - name: Execute tests
-        run: vendor/bin/phpunit --verbose
+        run: composer run test
