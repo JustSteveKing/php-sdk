@@ -81,6 +81,6 @@ it('can forward calls through to attached resource', function () {
     );
 
     expect(
-        $sdk->projects->uri()
-    )->toBeInstanceOf(Uri::class);
+        $sdk->projects
+    )->toBeInstanceOf(ProjectResource::class);
 });

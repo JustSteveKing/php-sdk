@@ -18,7 +18,7 @@
     }
   ],
   "require": {
-    "php": "^8.1",
+    "php": "^8.0|^8.1",
     "juststeveking/http-auth-strategies": "^v1.2",
     "juststeveking/http-slim": "^2.0",
     "juststeveking/uri-builder": "^2.0",
