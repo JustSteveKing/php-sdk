@@ -8,7 +8,6 @@ use JustSteveKing\HttpSlim\HttpClient;
 use JustSteveKing\PhpSdk\SDK;
 use JustSteveKing\UriBuilder\Uri;
 use PHPFox\Container\Container;
-use Symfony\Component\HttpClient\Psr18Client;
 
 class Forge extends SDK
 {

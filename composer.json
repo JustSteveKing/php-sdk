@@ -42,7 +42,7 @@
     }
   },
   "scripts": {
-    "test": "./vendor/bin/phpunit --testdox --coverage-html build/coverage"
+    "test": "./vendor/bin/pest"
   },
   "minimum-stability": "dev",
   "prefer-stable": true,
