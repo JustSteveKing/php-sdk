@@ -10,7 +10,6 @@
 [![Latest Version][badge-release]][packagist]
 [![PHP Version][badge-php]][php]
 ![tests](https://github.com/JustSteveKing/php-sdk/workflows/tests/badge.svg)
-![Check & fix styling](https://github.com/JustSteveKing/php-sdk/workflows/Code%20style/badge.svg)
 [![Total Downloads][badge-downloads]][downloads]
 
 [badge-release]: https://img.shields.io/packagist/v/juststeveking/php-sdk.svg?style=flat-square&label=release
@@ -22,12 +21,11 @@
 [downloads]: https://packagist.org/packages/juststeveking/php-sdk
 <!-- BADGES_END -->
 
-A framework for building simple to use SDKs in PHP 8.1 and above.
+A framework for building simple to use SDKs in PHP 8.0 and above.
 
 ## Purpose
 
 The purpose of this package is to provide a consistent and interoperable way to build PHP SDKs to work with 3rd party APis.
-
 
 ## Usage
 
