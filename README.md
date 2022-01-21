@@ -2,7 +2,7 @@
 
 <p align="center">
 
-![](./php-sdk.png)
+![](./banner.png)
 
 </p>
 
