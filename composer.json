@@ -22,7 +22,7 @@
     "juststeveking/http-auth-strategies": "^v1.2",
     "juststeveking/http-slim": "^2.0",
     "juststeveking/uri-builder": "^2.0",
-    "phpfox/container": "^0.2.0"
+    "phpfox/container": "^0.3.0"
   },
   "require-dev": {
     "nyholm/psr7": "^1.4",
@@ -49,6 +49,9 @@
   "config": {
     "sort-packages": true,
     "preferred-install": "dist",
-    "optimize-autoloader": true
+    "optimize-autoloader": true,
+    "allow-plugins": {
+      "pestphp/pest-plugin": true
+    }
   }
 }

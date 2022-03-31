@@ -23,6 +23,12 @@
 
 A framework for building simple to use SDKs in PHP 8.0 and above.
 
+## Installation
+
+```shell
+composer require juststeveking/php-sdk
+```
+
 ## Purpose
 
 The purpose of this package is to provide a consistent and interoperable way to build PHP SDKs to work with 3rd party APis.
