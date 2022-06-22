@@ -14,9 +14,10 @@ use RuntimeException;
  */
 abstract class AbstractResource
 {
+    protected string $path = '';
+    
     public function __construct(
         private SDK $sdk,
-        private null|string $path = null,
         protected string $authHeader = 'Bearer',
         private array $with = [],
         protected array $relations = [],
