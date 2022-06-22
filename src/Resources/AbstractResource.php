@@ -152,7 +152,7 @@ abstract class AbstractResource
      */
     public function find(string|int $identifier): ResponseInterface
     {
-        $this->sdk()->uri()->addPath(
+        $this->loadPath()->sdk()->uri()->addPath(
             path: "{$this->sdk()->uri()->path()}/{$identifier}",
         );
 
@@ -184,12 +184,12 @@ abstract class AbstractResource
     public function create(array $data): ResponseInterface
     {
         if (! is_null($this->with)) {
-            $this->sdk()->uri()->addPath(
+            $this->loadPath()->sdk()->uri()->addPath(
                 path: "{$this->sdk()->uri()->path()}/" . implode("/", $this->with),
             );
         }
 
-        return $this->sdk()->client()->post(
+        return $this->loadPath()->sdk()->client()->post(
             uri: $this->sdk()->uri()->toString(),
             body: $data,
             headers: $this->sdk()->strategy()->getHeader(
@@ -206,7 +206,7 @@ abstract class AbstractResource
      */
     public function update($identifier, array $data, string $method = 'patch'): ResponseInterface
     {
-        $this->sdk()->uri()->addPath(
+        $this->loadPath()->sdk()->uri()->addPath(
             path: "{$this->sdk()->uri()->path()}/{$identifier}",
         );
 
@@ -233,7 +233,7 @@ abstract class AbstractResource
      */
     public function delete(string|int $identifier): ResponseInterface
     {
-        $this->sdk()->uri()->addPath(
+        $this->loadPath()->sdk()->uri()->addPath(
             path: "{$this->sdk()->uri()->path()}/{$identifier}"
         );
 
