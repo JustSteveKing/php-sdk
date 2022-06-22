@@ -183,13 +183,15 @@ abstract class AbstractResource
      */
     public function create(array $data): ResponseInterface
     {
+        $this->loadPath();
+        
         if (! is_null($this->with)) {
-            $this->loadPath()->sdk()->uri()->addPath(
+            $this->sdk()->uri()->addPath(
                 path: "{$this->sdk()->uri()->path()}/" . implode("/", $this->with),
             );
         }
 
-        return $this->loadPath()->sdk()->client()->post(
+        return $this->sdk()->client()->post(
             uri: $this->sdk()->uri()->toString(),
             body: $data,
             headers: $this->sdk()->strategy()->getHeader(
