@@ -135,7 +135,7 @@ abstract class AbstractResource
      */
     public function get(): ResponseInterface
     {
-        return $this->sdk()->client()->get(
+        return $this->loadPath()->sdk()->client()->get(
             uri: $this->sdk()->uri()->toString(),
             headers: $this->sdk()->strategy()->getHeader(
                 prefix: $this->authHeader,
