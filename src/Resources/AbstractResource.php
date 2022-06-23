@@ -14,9 +14,10 @@ use RuntimeException;
  */
 abstract class AbstractResource
 {
+    protected string $path = '';
+    
     public function __construct(
         private SDK $sdk,
-        private null|string $path = null,
         protected string $authHeader = 'Bearer',
         private array $with = [],
         protected array $relations = [],
@@ -151,7 +152,7 @@ abstract class AbstractResource
      */
     public function find(string|int $identifier): ResponseInterface
     {
-        $this->sdk()->uri()->addPath(
+        $this->loadPath()->sdk()->uri()->addPath(
             path: "{$this->sdk()->uri()->path()}/{$identifier}",
         );
 
@@ -182,6 +183,8 @@ abstract class AbstractResource
      */
     public function create(array $data): ResponseInterface
     {
+        $this->loadPath();
+        
         if (! is_null($this->with)) {
             $this->sdk()->uri()->addPath(
                 path: "{$this->sdk()->uri()->path()}/" . implode("/", $this->with),
@@ -205,7 +208,7 @@ abstract class AbstractResource
      */
     public function update($identifier, array $data, string $method = 'patch'): ResponseInterface
     {
-        $this->sdk()->uri()->addPath(
+        $this->loadPath()->sdk()->uri()->addPath(
             path: "{$this->sdk()->uri()->path()}/{$identifier}",
         );
 
@@ -232,7 +235,7 @@ abstract class AbstractResource
      */
     public function delete(string|int $identifier): ResponseInterface
     {
-        $this->sdk()->uri()->addPath(
+        $this->loadPath()->sdk()->uri()->addPath(
             path: "{$this->sdk()->uri()->path()}/{$identifier}"
         );
 
