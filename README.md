@@ -207,7 +207,7 @@ class MySDK extends SDK
             ),
             client: HttpClient::build(),
             container: Container::getInstance(),
-            strategy: new NullStrategy()),
+            strategy: new NullStrategy(),
         );
     }
 
