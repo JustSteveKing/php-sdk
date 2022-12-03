@@ -207,7 +207,7 @@ class MySDK extends SDK
             ),
             client: HttpClient::build(),
             container: Container::getInstance(),
-            strategy: new NullStrategy()),
+            strategy: new NullStrategy(),
         );
     }
 
@@ -240,4 +240,4 @@ composer run test
 
 ## LICENSE
 
-The MIT LIcense (MIT). Please see [License File](./LICENSE) for more information.
+The MIT License (MIT). Please see [License File](./LICENSE) for more information.
