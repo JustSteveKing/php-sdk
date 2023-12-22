@@ -27,7 +27,8 @@ abstract class Client implements ClientContract
     public function __construct(
         protected readonly string $apiToken,
         protected readonly string $url,
-    ) {}
+    ) {
+    }
 
     /**
      * Set up the client using PSR-18 discovery, passing in plugins.

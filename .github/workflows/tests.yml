@@ -10,19 +10,19 @@ jobs:
     strategy:
       fail-fast: true
       matrix:
-        php: [ 8.0, 8.1 ]
+        php: [ 8.3 ]
 
     name: PHP ${{ matrix.php }} on Linux
 
     steps:
       - name: Checkout Code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
 
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
           php-version: ${{ matrix.php }}
-          extensions: dom, curl, libxml, mbstring, zip, http
+          extensions: dom, curl, json, libxml, mbstring, zip, http
           tools: composer:v2
           coverage: none
 
@@ -37,7 +37,7 @@ jobs:
     strategy:
       fail-fast: true
       matrix:
-        php: [ 8.0, 8.1 ]
+        php: [ 8.3 ]
 
     name: PHP ${{ matrix.php }} on Windows
 
@@ -48,13 +48,13 @@ jobs:
           git config --global core.autocrlf false
           git config --global core.eol lf
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
 
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
           php-version: ${{ matrix.php }}
-          extensions: dom, curl, libxml, mbstring, zip, http
+          extensions: dom, curl, json, libxml, mbstring, zip, http
           tools: composer:v2
           coverage: none
           ini-values: memory_limit=512M
