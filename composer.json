@@ -1,57 +1,95 @@
 {
   "name": "juststeveking/php-sdk",
-  "description": "A base sdk for your PHP SDKs",
-  "keywords": [
-    "http",
-    "sdk",
-    "psr18",
-    "psr-18"
-  ],
+  "description": "A framework for building SDKs in PHP.",
   "type": "library",
+  "keywords": [
+    "php","sdk","sdk-framework","psr-18"
+  ],
   "license": "MIT",
   "authors": [
     {
-      "role": "developer",
       "name": "Steve McDougall",
       "email": "juststevemcd@gmail.com",
-      "homepage": "https://www.juststeveking.uk/"
+      "homepage": "https://www.juststeveking.uk/",
+      "role": "Developer"
+    }
+  ],
+  "support": {
+    "issues": "https://github.com/juststeveking/php-sdk/issues"
+  },
+  "funding": [
+    {
+      "type": "github",
+      "url": "https://github.com/sponsors/JustSteveKing"
     }
   ],
   "require": {
-    "php": "^8.0|^8.1",
-    "juststeveking/http-auth-strategies": "^v1.2",
-    "juststeveking/http-slim": "^2.0",
-    "juststeveking/uri-builder": "^2.0",
-    "phpfox/container": "^0.3.0"
+    "php": "^8.3",
+    "crell/serde": "^1.0",
+    "juststeveking/sdk-tools": "^0.0.5",
+    "league/object-mapper": "dev-main",
+    "nyholm/psr7": "^1.8",
+    "php-http/client-common": "^2.7",
+    "php-http/discovery": "^1.19",
+    "psr/http-client": "^1.0",
+    "psr/http-client-implementation": "*",
+    "psr/http-factory-implementation": "*",
+    "psr/http-message": "^2.0",
+    "ramsey/collection": "^2.0",
+    "symfony/http-client": "^7.0"
   },
   "require-dev": {
-    "nyholm/psr7": "^1.4",
-    "pestphp/pest": "^1.21",
-    "symfony/http-client": "^v6.0",
-    "symfony/var-dumper": "^v6.0"
+    "laravel/pint": "^1.13",
+    "php-http/mock-client": "^1.6",
+    "phpstan/phpstan": "^1.10",
+    "phpunit/phpunit": "^10.5",
+    "rector/rector": "^0.18.13",
+    "roave/security-advisories": "dev-latest"
+  },
+  "provide": {
+    "psr-discovery/http-client-implementations": "^1.0"
+  },
+  "suggest": {
+
   },
   "autoload": {
     "psr-4": {
-      "JustSteveKing\\PhpSdk\\": "src/"
+      "JustSteveKing\\Sdk\\": "src/"
     }
   },
   "autoload-dev": {
     "psr-4": {
-      "JustSteveKing\\PhpSdk\\Tests\\": "tests/",
-      "Demo\\": "demo/"
+      "JustSteveKing\\Sdk\\Tests\\": "tests/"
     }
   },
-  "scripts": {
-    "test": "./vendor/bin/pest"
-  },
-  "minimum-stability": "dev",
+  "minimum-stability": "stable",
   "prefer-stable": true,
   "config": {
-    "sort-packages": true,
-    "preferred-install": "dist",
-    "optimize-autoloader": true,
     "allow-plugins": {
-      "pestphp/pest-plugin": true
-    }
+      "php-http/discovery": true
+    },
+    "optimize-autoloader": true,
+    "sort-packages": true,
+    "classmap-authoritative": true
+  },
+  "scripts": {
+    "pint": [
+      "./vendor/bin/pint"
+    ],
+    "refactor": [
+      "./vendor/bin/rector --debug"
+    ],
+    "stan": [
+      "./vendor/bin/phpstan analyse --memory-limit=3g"
+    ],
+    "test": [
+      "./vendor/bin/phpunit --testdox"
+    ]
+  },
+  "scripts-descriptions": {
+    "pint": "Run Laravel Pint on the codebase.",
+    "refactor": "Run Rector on the codebase.",
+    "stan": "Run PhpStan on the codebase.",
+    "test": "Run PhpUnit on the testsuite."
   }
 }
