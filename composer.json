@@ -26,6 +26,7 @@
   "require": {
     "php": "^8.3",
     "ext-json": "*",
+    "ext-fileinfo": "*",
     "crell/serde": "^1.0.1",
     "juststeveking/sdk-tools": "^0.0.5",
     "league/object-mapper": "dev-main",
