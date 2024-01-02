@@ -1,0 +1,9 @@
+parameters:
+    paths:
+        - src/
+
+    level: 9
+
+    checkGenericClassInNonGenericObjectType: false
+
+    ignoreErrors:
