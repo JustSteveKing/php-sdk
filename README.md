@@ -1,5 +1,10 @@
 # PHP SDK
 
+> [!WARNING]
+> **This package is no longer maintained.** It's replaced by [juststeveking/sdk-toolbox](https://github.com/JustSteveKing/sdk-toolbox), which does the same job, a connector with request classes, built on PSR-18 alone and typed end to end. It adds retries that only repeat what's safe, RFC 9457 errors, OAuth, pagination, caching and testing tools, all following the HTTP standards. [Porting an existing SDK](https://github.com/JustSteveKing/sdk-toolbox/blob/main/docs/porting.md) walks through moving one across.
+>
+> Existing versions stay installable, so nothing that depends on this package breaks.
+
 <!-- BADGES_START -->
 [![Latest Version][badge-release]][packagist]
 [![PHP Version][badge-php]][php]
